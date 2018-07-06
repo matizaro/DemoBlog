@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import com.example.matiz.demoblog.R
 import com.example.matiz.demoblog.activity.util.BaseActivity
@@ -68,7 +69,10 @@ class PostActivity : BaseActivity(), PostContract.View {
         if(comments.size==0){
             Toast.makeText(this, "there is no comments to this post", Toast.LENGTH_LONG).show()
         }else{
+            val controller = AnimationUtils.loadLayoutAnimation(this, R.anim.layout_animation_fall_down);
+            this.comments.setLayoutAnimation(controller);
             this.comments.adapter = CommentsAdapter(comments)
+            this.comments.scheduleLayoutAnimation();
         }
         comments_pb.visibility=View.GONE
     }
